@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
-    <head>
-        <h1>Making sure this works</h1>
-        <link rel="stylesheet" href ="{{ url_for('static', filename='styles.css')}}">
-    </head>
-    <body>        
-            <h1>Product Sales Data</h1>
-            {{ table|safe }}
-    </body>
-
+  <head>
+    <title>FLASK CSV File Upload</title>
+  </head>
+  <body>
+    <h1>Upload your CSV file</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+  </body>
 </html>
