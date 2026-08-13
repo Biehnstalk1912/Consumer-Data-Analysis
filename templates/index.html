@@ -4,8 +4,9 @@
         <h1>Making sure this works</h1>
         <link rel="stylesheet" href ="{{ url_for('static', filename='styles.css')}}">
     </head>
-    <body>
-
+    <body>        
+            <h1>Product Sales Data</h1>
+            {{ table|safe }}
     </body>
 
 </html>
