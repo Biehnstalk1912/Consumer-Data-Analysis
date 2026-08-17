@@ -1,14 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os 
-from Data import parseCSV
+from SQLConnection import parseCSV
 
 
 app = Flask(__name__)
 
-TABLE_NAME = "Practice"
+TABLE_NAME = "orders_table  "
 UPLOAD_FOLDER = 'static/files'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 
 @app.route('/')
 def index():
