@@ -4,6 +4,7 @@ import os
 from os.path import join, dirname, realpath
 import mysql.connector
 from mysql.connector import Error
+import sqlalchemy
 
 
 app = Flask(__name__)
@@ -25,6 +26,7 @@ def uploadFiles():
            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
           # set the file path
            uploaded_file.save(file_path)
+           parseCSV(file_path)
           # save the file
       return redirect(url_for('index'))
   
@@ -59,13 +61,12 @@ finally:
         print("MySQL connection is closed")
 
 def parseCSV(filePath):
-      # CVS Column Names
       col_names = ['Order_ID', 'Order_Date', 'Customer_Name', 'City', 'State', 'Region', 'Country', 'Category', 'Sub_Category', 'Product_Name', 'Quantity', ' Unit_Price ', ' Revenue ', ' Profit ']
-      # Use Pandas to parse the CSV file
       csvData = pd.read_csv(filePath,names=col_names, header=None)
-      # Loop through the Rows
-      for i,row in csvData.iterrows():
-             print(i,row['Order_ID'],row['Customer_Name'],row['City'],row['State'],row['Region'],row['Country'], row['Category'],row['Sub_Category'],row['Product_Name'],row['Quantity'],row[' Unit_Price '],row[' Revenue '],row[' Profit '])
+      csvData.columns = csvData.columns.str.strip()
+      engine = sqlalchemy.create_engine('mysql+pymysql://root:@localhost/flask_project', echo=True)
+      csvData.to_sql('orders_table', con=engine, if_exists='append', index=False)
+
 
 if __name__ == "__main__":
     app.run(port = 5000, debug = True)
