@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os 
-from SQLConnection import parseCSV
+from SQLConversion import parseCSV
 
 
 app = Flask(__name__)
