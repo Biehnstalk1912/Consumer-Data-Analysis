@@ -10,11 +10,5 @@
       <p><input type="file" name="file"></p>
       <p><input type="submit" value="Submit"></p>
     </form>
-    <div id="graph" style="width:100%;height:400px;"> </div>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script>
-        var graphJSON = {{ graphJSON | safe }};
-        Plotly.newPlot('myDiv', graphJSON.data, graphJSON.layout);
-    </script>
   </body>
 </html>
